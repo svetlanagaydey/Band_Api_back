@@ -1,8 +1,15 @@
 const fs = require("fs");
 
-const parserClients = () => {
-  return JSON.parse(fs.readFileSync("../json/data.json", "utf-8"));
+const parserClients = (path) => {
+  return JSON.parse(fs.readFileSync(path, "utf-8"));
 };
+const addClient = (usersData, path) => {
+  fs.writeFileSync(path, JSON.stringify(usersData));
+}
 
-console.log(parserClients());
-module.exports = parserClients;
+
+//console.log(parserClients());
+
+module.exports = { addClient, parserClients};
+
+

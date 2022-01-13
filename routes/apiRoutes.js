@@ -15,7 +15,7 @@ const {
 // } from "../controllers/userControllers";
 
 const apiRouter = express.Router();
-
+apiRouter.get("/", (req, res) => res.send("ok"));
 apiRouter.get("/users/:id", getUser);
 
 apiRouter.get("/users", getAllUsers);
