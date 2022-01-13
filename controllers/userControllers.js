@@ -1,7 +1,5 @@
 const express = require("express");
 const { parserClients, addClient } = require("../utils/utils");
-
-
 const app = express();
 const path = "./json/data.json";
 
@@ -15,11 +13,12 @@ const getUser = (req, res) => {
 
 const addUser = (req, res) => {
   const usersData = parserClients(path);
-  const { id, cash, credit } = req.body;
-  const data = { id, cash, credit };
+  const data = req.body;
+  console.log(req.body)
+  //const data = { "id":req.body.id, "cash":cash, "credit":credit };
   usersData.users.push(data);
   addClient(usersData, path);
-  res.send(`User has been added`);
+  res.send(usersData);
 };
 
 const editUser = (req, res) => {
