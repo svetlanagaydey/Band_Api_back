@@ -5,23 +5,25 @@ const {
   addUser,
   deleteUser,
   editing,
-  depositing
+  depositing,
+  updateCredit
 } = require("../controllers/userControllers");
 
 const apiRouter = express.Router();
 apiRouter.get("/", (req, res) => res.send("ok"));
 apiRouter.get("/users", getAllUsers);
 
-apiRouter.get("/users/:id", getUser);
+apiRouter.get("/user", getUser);
 // todo: adding users
 apiRouter.post("/users", addUser);
 
 // todo: delete user
-apiRouter.delete("/users/:id", deleteUser);
+apiRouter.delete("/users", deleteUser);
 
 // todo: editing user data
 apiRouter.put("/users/editing", editing);
 apiRouter.put("/users/depositing", depositing);
+apiRouter.put("/users/updateCredit", updateCredit);
 
 // export default apiRouter;
 module.exports = apiRouter;

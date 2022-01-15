@@ -78,9 +78,32 @@ const depositing = (req, res) => {
   }
 }
 
+const updateCredit = (req, res) => {
+  const {id, cred} = req.body;
+  if(ifExistUser(id)) {
+    const userUpd = usersData.users.filter((el) => { 
+      
+      if ((el.cash <= 0) && (el.id === id)) {
+        res.send("Can not update negative balanse.")
+      }
+      if(el.id === id) {
+        el.credit=cred;
+        
+      }
+      return el;
+      
+    });
+    updateDataBase({"users": userUpd}, path)
+    res.send(userUpd);
+  } else {
+    res.send("Can not find user id: " + id);
+  }
+
+}
+
 const ifExistUser = (id) => {
   const currentUser = usersData.users.find((client) => { return client.id === id});
   return currentUser // return object 
 }
 
-module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing};
+module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit};
