@@ -6,10 +6,10 @@ const parserClients = (path) => {
 const addClient = (usersData, path) => {
   fs.writeFileSync(path, JSON.stringify(usersData));
 }
+const deleteClient = (usersData, path) => {
+  fs.writeFileSync(path, JSON.stringify(usersData));
+}
 
-
-//console.log(parserClients());
-
-module.exports = { addClient, parserClients};
+module.exports = {parserClients, addClient, deleteClient};
 
 
