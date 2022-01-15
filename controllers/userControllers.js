@@ -140,8 +140,14 @@ const transferring = (req, res) => {
 
 const sortByCash = (req, res) => {
   const resultArray = Array.from(usersData.users);
-  resultArray.sort((a, b) => (a.cash > b.cash) ? 1 : -1);
+  resultArray.sort((a, b) => (a.cash > b.cash) ? -1 : 1);
   res.send(resultArray);
+}
+const sortDebtors = (req, res) => {
+  const resArray = Array.from(usersData.users)
+    .filter((el) => {if(el.cash < 0) return el})
+    .sort((a, b) => (a.cash > b.cash) ? 1 : -1);
+  res.send(resArray);
 }
 //list.sort((a, b) => (a.color > b.color) ? 1 : -1)
 
@@ -150,4 +156,4 @@ const ifExistUser = (id) => {
   return currentUser // return object 
 }
 
-module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit, withdraw, transferring, sortByCash};
+module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit, withdraw, transferring, sortByCash, sortDebtors};
