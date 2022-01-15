@@ -8,7 +8,8 @@ const {
   depositing,
   updateCredit,
   withdraw,
-  transferring
+  transferring,
+  sortByCash
 } = require("../controllers/userControllers");
 
 const apiRouter = express.Router();
@@ -28,8 +29,7 @@ apiRouter.put("/users/depositing", depositing);
 apiRouter.put("/users/updateCredit", updateCredit);
 apiRouter.put("/users/withdraw", withdraw);
 apiRouter.put("/users/transferring", transferring);
-
-
+apiRouter.post("/users/sortCash", sortByCash)
 
 
 // export default apiRouter;

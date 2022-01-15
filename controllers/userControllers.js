@@ -119,28 +119,35 @@ const withdraw = (req, res) => {
 const transferring = (req, res) => {
   const {idFrom, idTo, sum} = req.body;
   if(ifExistUser(idFrom) && (ifExistUser(idTo))) {
-  const afterTransfer = usersData.users.filter((el) => { 
-    if ((el.cash + el.credit <= sum) && (el.id === idFrom)) {
-      res.send("Not enouth money to send");
-    }
-    if ((el.cash + el.credit > sum) && (el.id === idFrom)) {
-      el.cash = el.cash - sum;
-    }
-    if (el.id === idTo) {
-      el.cash = el.cash + sum;
-    }
-    return el;
-    })
-  updateDataBase({"users": afterTransfer}, path)
-  res.send(afterTransfer);
-} else {
-  res.send("Can not find one of users.");
+    const afterTransfer = usersData.users.filter((el) => { 
+      if ((el.cash + el.credit <= sum) && (el.id === idFrom)) {
+        res.send("Not enouth money to send");
+      }
+      if ((el.cash + el.credit > sum) && (el.id === idFrom)) {
+        el.cash = el.cash - sum;
+      }
+      if (el.id === idTo) {
+        el.cash = el.cash + sum;
+      }
+      return el;
+      })
+    updateDataBase({"users": afterTransfer}, path)
+    res.send(afterTransfer);
+  } else {
+    res.send("Can not find one of users.");
+  }
 }
+
+const sortByCash = (req, res) => {
+  const resultArray = Array.from(usersData.users);
+  resultArray.sort((a, b) => (a.cash > b.cash) ? 1 : -1);
+  res.send(resultArray);
 }
+//list.sort((a, b) => (a.color > b.color) ? 1 : -1)
 
 const ifExistUser = (id) => {
   const currentUser = usersData.users.find((client) => { return client.id === id});
   return currentUser // return object 
 }
 
-module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit, withdraw, transferring};
+module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit, withdraw, transferring, sortByCash};
