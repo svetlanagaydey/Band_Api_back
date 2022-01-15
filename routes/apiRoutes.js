@@ -6,7 +6,8 @@ const {
   deleteUser,
   editing,
   depositing,
-  updateCredit
+  updateCredit,
+  withdraw
 } = require("../controllers/userControllers");
 
 const apiRouter = express.Router();
@@ -24,6 +25,9 @@ apiRouter.delete("/users", deleteUser);
 apiRouter.put("/users/editing", editing);
 apiRouter.put("/users/depositing", depositing);
 apiRouter.put("/users/updateCredit", updateCredit);
+apiRouter.put("/users/withdraw", withdraw);
+
+
 
 // export default apiRouter;
 module.exports = apiRouter;
