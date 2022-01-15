@@ -1,33 +1,25 @@
 const express = require("express");
 const {
+  getAllUsers,
   getUser,
   addUser,
-  editUser,
   deleteUser,
-  getAllUsers,
+  editing
 } = require("../controllers/userControllers");
-// import {
-//   getUser,
-//   addUser,
-//   editUser,
-//   deleteUser,
-//   getAllUsers,
-// } from "../controllers/userControllers";
 
 const apiRouter = express.Router();
 apiRouter.get("/", (req, res) => res.send("ok"));
-apiRouter.get("/users/:id", getUser);
-
 apiRouter.get("/users", getAllUsers);
 
+apiRouter.get("/users/:id", getUser);
 // todo: adding users
 apiRouter.post("/users", addUser);
 
-// todo: editing user data
-apiRouter.put("/users", editUser);
-
 // todo: delete user
 apiRouter.delete("/users/:id", deleteUser);
+
+// todo: editing user data
+apiRouter.put("/users/editing", editing);
 
 // export default apiRouter;
 module.exports = apiRouter;

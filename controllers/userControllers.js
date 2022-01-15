@@ -31,25 +31,31 @@ const deleteUser = (req, res) => {
   if (!ifExistUser(req.body.id)) {
     res.send('It is now user with id: ' + req.body.id)
   } else {
-    const updatedUsers = usersData.users.filter((el) => { return el.id !== req.body.id});
-    deleteClient(updatedUsers, path);
-    res.send(updatedUsers);
+    //console.log(el.id);
+    const result = usersData.users.filter((el) => { 
+      console.log(el.id);
+      console.log(req.body.id);
+      console.log(el.id === req.body.id)
+      return el.id !== req.body.id
+    });
+    const resObj = {"users": result};
+    console.log(usersData)
+    deleteClient(resObj, path);
+    res.send(result);
   }
 };
 
-const editUser = (req, res) => {
-  if (!ifExistUser(req.body.id)) {
-    res.send('Can not find id: ' + req.body.id)
-  } else {
+const editing = (req, res) => {
+
+  //res.sendStatus(req.body.balance);
+  res.send(req.body.id);
     // const currentUser = usersData.users.find((client) => { return client.id == req.body.id});
-    // currentUser.balance = req.body.balance;
-    // res.send(currentUser);
-  }
+    
 };
 
 const ifExistUser = (id) => {
-  const currentUser = usersData.users.find((client) => { return client.id == id});
+  const currentUser = usersData.users.find((client) => { return client.id === id});
   return currentUser // return object 
 }
 
-module.exports = { getAllUsers, getUser, addUser, deleteUser, editUser};
+module.exports = { getAllUsers, getUser, addUser, deleteUser, editing};
