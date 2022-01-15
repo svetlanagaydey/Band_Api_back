@@ -106,7 +106,6 @@ const withdraw = (req, res) => {
       }
       if(el.id === id) {
         el.cash = el.cash - summ;
-        return el;
       }
       return el;
     });
@@ -115,8 +114,28 @@ const withdraw = (req, res) => {
   } else {
     res.send("Can not find user id: " + id);
   }
-  
+}
 
+const transferring = (req, res) => {
+  const {idFrom, idTo, sum} = req.body;
+  if(ifExistUser(idFrom) && (ifExistUser(idTo))) {
+  const afterTransfer = usersData.users.filter((el) => { 
+    if ((el.cash + el.credit <= sum) && (el.id === idFrom)) {
+      res.send("Not enouth money to send");
+    }
+    if ((el.cash + el.credit > sum) && (el.id === idFrom)) {
+      el.cash = el.cash - sum;
+    }
+    if (el.id === idTo) {
+      el.cash = el.cash + sum;
+    }
+    return el;
+    })
+  updateDataBase({"users": afterTransfer}, path)
+  res.send(afterTransfer);
+} else {
+  res.send("Can not find one of users.");
+}
 }
 
 const ifExistUser = (id) => {
@@ -124,4 +143,4 @@ const ifExistUser = (id) => {
   return currentUser // return object 
 }
 
-module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit, withdraw};
+module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing, updateCredit, withdraw, transferring};
