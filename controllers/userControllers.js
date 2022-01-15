@@ -19,7 +19,7 @@ const getUser = (req, res) => {
 const addUser = (req, res) => {
   const data = { "id":req.body.id, "cash":0, "credit":0 };
   if (ifExistUser(req.body.id)) {
-    res.send('The user id: ' + req.body.id + 'exist in database.')
+    res.send("The user id: " + req.body.id + " don't exist in database.")
   } else {
     usersData.users.push(data);
     updateDataBase(usersData, path);
@@ -57,7 +57,7 @@ const editing = (req, res) => {
     updateDataBase({"users": result}, path)
     res.send(result);
   } else {
-    res.send("Something wrong!");
+    res.send("The user don't exist!");
   }
 };
 
