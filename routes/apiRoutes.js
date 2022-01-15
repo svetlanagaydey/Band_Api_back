@@ -4,7 +4,8 @@ const {
   getUser,
   addUser,
   deleteUser,
-  editing
+  editing,
+  depositing
 } = require("../controllers/userControllers");
 
 const apiRouter = express.Router();
@@ -20,6 +21,7 @@ apiRouter.delete("/users/:id", deleteUser);
 
 // todo: editing user data
 apiRouter.put("/users/editing", editing);
+apiRouter.put("/users/depositing", depositing);
 
 // export default apiRouter;
 module.exports = apiRouter;

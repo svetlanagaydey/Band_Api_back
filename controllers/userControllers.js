@@ -43,46 +43,44 @@ const deleteUser = (req, res) => {
 
 const editing = (req, res) => {
   const { id, cash, credit } = req.body;
-    if (ifExistUser(id)) {
-      // const data = updateDataUser(id, cash, credit);
-      // updateClient(data, path);
-      const result = usersData.users.filter((el) => { 
-        if(el.id === id) {
-          el.cash = cash;
-          el.credit = credit;
-          return el;
-        }
+  if (ifExistUser(id)) {
+    // const data = updateDataUser(id, cash, credit);
+    // updateClient(data, path);
+    const result = usersData.users.filter((el) => { 
+      if(el.id === id) {
+        el.cash = cash;
+        el.credit = credit;
         return el;
-      });
-     // const resObj = {"users": result};
-      updateDataBase({"users": result}, path)
-      res.send(result);
-    } else {
-      res.send("Something wrong!");
-    }
-  //res.sendStatus(req.body.balance);
-  //res.send(req.body.id, + " put sum: " + req.body.sum,);
-    // const currentUser = usersData.users.find((client) => { return client.id == req.body.id});
-    
+      }
+      return el;
+    });
+    updateDataBase({"users": result}, path)
+    res.send(result);
+  } else {
+    res.send("Something wrong!");
+  }
 };
-// const updateDataUser = (id, cash, credit) => {
-//   const usersData = parserClients(path);
-//   const data = usersData.users.filter((user) => {
-//     if (user.id === id) {
-//       user.cash = cash;
-//       user.credit = credit;
-//       return user;
-//     } else {
-//       return user;
-//     }
-//   });
-//   usersData.users = data;
-//   return usersData;
-// };
+
+const depositing = (req, res) => {
+  const {id, sum} = req.body;
+  if(ifExistUser(id)) {
+    const userUpdated = usersData.users.filter((el) => { 
+      if(el.id === id) {
+        el.cash = el.cash + sum;
+        return el;
+      }
+      return el;
+    });
+    updateDataBase({"users": userUpdated}, path)
+    res.send(userUpdated);
+  } else {
+    res.send("Can not find user id: " + id);
+  }
+}
 
 const ifExistUser = (id) => {
   const currentUser = usersData.users.find((client) => { return client.id === id});
   return currentUser // return object 
 }
 
-module.exports = { getAllUsers, getUser, addUser, deleteUser, editing};
+module.exports = { getAllUsers, getUser, addUser, deleteUser, editing, depositing};
