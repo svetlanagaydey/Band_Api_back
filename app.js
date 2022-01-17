@@ -1,13 +1,12 @@
-require("dotenv").config()
 const express = require("express")
-const cors = require("cors")
-const apiRouter = require("./routes/apiRoutes")
-
 const app = express();
-
-app.use(cors());
 app.use(express.json());
+require("dotenv").config();
 
+const cors = require("cors");
+app.use(cors());
+
+const apiRouter = require("./routes/apiRoutes")
 app.use("/api", apiRouter);
 
 app.listen(process.env.PORT, () => {
