@@ -10,7 +10,7 @@ app.use(cors());
 const apiRouter = require("./routes/apiRoutes")
 app.use("/api", apiRouter);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 8080, () => {
   console.log("Server is up on port");
 });
 
