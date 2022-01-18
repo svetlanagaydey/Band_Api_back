@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/svetlanagaydey/BankAPI/issues"
   },
-  "homepage": "https://github.com/svetlanagaydey/BankAPI#readme"
+  "homepage": "https://github.com/svetlanagaydey/BankAPI#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^14.2.0",
+    "express": "^4.17.2"
+  }
 }
